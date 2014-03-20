@@ -285,7 +285,5 @@ mv php .heroku
 # update config files
 cp $LP_DIR/conf/php.ini .heroku/php
 
-
-
 # make php available on bin
-ln -s .heroku/php/bin/php /bin/php
+#ln -s .heroku/php/bin/php /bin/php
