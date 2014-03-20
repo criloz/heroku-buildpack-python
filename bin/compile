@@ -181,8 +181,10 @@ PHP_VERSION="5.3.27"
 
 puts-step "-----> Bundling PHP version $PHP_VERSION"
 curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz -s | tar xz &> /dev/null
+rm -fr .heroku/php
 mv php .heroku/php
 # make php available on bin
+mkdir bin &> /dev/null
 ln -s .heroku/php/bin/php bin/php
 
 # If Pip isn't up to date:
