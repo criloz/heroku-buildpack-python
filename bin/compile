@@ -186,7 +186,7 @@ rm -fr php
 curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz -s | tar xz &> /dev/null
 
 # make php available on bin
-chmod +x /php/bin/*
+chmod +x php/bin/*
 
 cp $ROOT_DIR/conf/php.ini php
 
