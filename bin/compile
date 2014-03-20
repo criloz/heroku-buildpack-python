@@ -220,7 +220,7 @@ puts-step "Installing dependencies using Pip ($PIP_VERSION)"
 [ ! "$FRESH_PYTHON" ] && bpwatch start pip_install
 [ "$FRESH_PYTHON" ] && bpwatch start pip_install_first
 
-/app/.heroku/python/bin/pip install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-unverified PIL --allow-all-external  | cleanup | indent
+/app/.heroku/python/bin/pip install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external  | cleanup | indent
 
 [ ! "$FRESH_PYTHON" ] && bpwatch stop pip_install
 [ "$FRESH_PYTHON" ] && bpwatch stop pip_install_first
@@ -282,7 +282,7 @@ shopt -s dotglob
 cd $BUILD_DIR
 
 echo "-----> Bundling PHP version $PHP_VERSION"
-curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz -s | tar xz &> /dev/null
+curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz | tar xz &> /dev/null
 
 # update config files
 cp $LP_DIR/conf/php.ini php
@@ -291,5 +291,3 @@ mv php .heroku/php
 
 # make php available on bin
 ln -s /app/.heroku/php/bin/php bin/php
-
-rm -rf $CACHE_DIR
