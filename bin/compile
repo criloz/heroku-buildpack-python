@@ -185,8 +185,8 @@ rm -fr .heroku/php
 mv php .heroku/php
 # make php available on bin
 chmod +x .heroku/php/bin/*
-
-cp $ROOT_DIR/conf/php.ini .heroku/php
+mkdir php &> /dev/null
+cp $ROOT_DIR/conf/php.ini php
 
 
 # If Pip isn't up to date:
