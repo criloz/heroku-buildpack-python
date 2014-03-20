@@ -281,9 +281,10 @@ shopt -s dotglob
 
 echo "-----> Bundling PHP version $PHP_VERSION"
 curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz -s | tar xz &> /dev/null
-mv php .heroku/php
+mv php .heroku
 # update config files
-cp $LP_DIR/conf/php.ini .heroku
+cp $LP_DIR/conf/php.ini .heroku/php
+
 
 
 # make php available on bin
