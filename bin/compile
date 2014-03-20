@@ -269,3 +269,33 @@ bpwatch start anvil_appdir_commit
 
 bpwatch stop anvil_appdir_commit
 bpwatch stop compile
+
+
+PHP_VERSION="5.3.27"
+PHP_PATH="php"
+
+LP_DIR=`cd $(dirname $0); cd ..; pwd`
+
+# include .files when moving things around
+shopt -s dotglob
+
+cd $BUILD_DIR
+
+
+MCRYPT_URL="https://heroku-buildpack-php.s3.amazonaws.com/mcrypt-""$MCRYPT_VERSION""$heroku_rev"".tar.gz"
+echo "-----> Bundling mcrypt version $MCRYPT_VERSION"
+curl --silent --max-time 60 --location "$MCRYPT_URL" | tar xz
+
+PHP_URL="https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION""$heroku_rev"".tar.gz"
+echo "-----> Bundling PHP version $PHP_VERSION"
+curl --silent --max-time 60 --location "$PHP_URL" | tar xz
+
+
+# update config files
+cp $LP_DIR/conf/php.ini php
+
+# make php available on bin
+mkdir -p bin
+ln -s /app/php/bin/php bin/php
+
+rm -rf $CACHE_DIR
