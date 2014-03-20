@@ -162,11 +162,21 @@ if [ ! "$SKIP_INSTALL" ]; then
       exit 1
     fi
     mv python .heroku/python
+  
   bpwatch stop install_python
-
+  	
   # Record for future reference.
   echo $PYTHON_VERSION > .heroku/python-version
   FRESH_PYTHON=true
+  
+  #********************************
+  #             php
+  #************************************
+  PHP_VERSION="5.3.27"
+
+  echo "-----> Bundling PHP version $PHP_VERSION"
+  curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz -s | tar xz &> /dev/null
+  mv php .heroku
 
   hash -r
 else
@@ -271,20 +281,12 @@ bpwatch stop anvil_appdir_commit
 bpwatch stop compile
 
 
-PHP_VERSION="5.3.27"
-PHP_PATH="php"
 
-LP_DIR=`cd $(dirname $0); cd ..; pwd`
+#LP_DIR=`cd $(dirname $0); cd ..; pwd`
 
-# include .files when moving things around
-shopt -s dotglob
-cd $BUILD_DIR
 
-echo "-----> Bundling PHP version $PHP_VERSION"
-curl https://heroku-buildpack-php.s3.amazonaws.com/php-$PHP_VERSION.tar.gz -s | tar xz &> /dev/null
-mv php .heroku
 # update config files
-cp $LP_DIR/conf/php.ini .heroku/php
+#cp $LP_DIR/conf/php.ini .heroku/php
 
 # make php available on bin
 #ln -s .heroku/php/bin/php /bin/php
